@@ -11,7 +11,7 @@ Run:
 
 ## API Documentation 
 You can use a data search using (in all fields by prefix)
-> http://127.0.0.1:8000/api/heritage_lost_objects-search?search=
+> http://127.0.0.1:8000/api/heritage_lost_objects-search?search= <
 You can use search for multiple terms
 > http://127.0.0.1:8000/api/heritage_lost_objects-search?search=query_1&search=query_2
 Search for multiple terms in specific fields
