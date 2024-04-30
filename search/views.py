@@ -10,6 +10,10 @@ from django_elasticsearch_dsl_drf.pagination import LimitOffsetPagination
 
 
 class HeritageLostObjectDocumentView(DocumentViewSet):
+    def __init__(self, *args, **kwargs):
+        super(HeritageLostObjectDocumentView, self).__init__(*args, **kwargs)
+        self.search = self.search.extra(track_total_hits=True)
+
     queryset = HeritageLostObject.objects.all()
     document = HeritageLostObjectDocument
     serializer_class = HeritageLostObjectDocumentSerializer

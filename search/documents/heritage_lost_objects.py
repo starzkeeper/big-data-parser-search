@@ -1,7 +1,7 @@
-from django_elasticsearch_dsl import Document, fields
-from django_elasticsearch_dsl.registries import registry
+from django.conf import settings
+from django_elasticsearch_dsl import Document, fields, Index
 from django_elasticsearch_dsl_drf.compat import StringField
-from elasticsearch_dsl import MetaField, analyzer
+from elasticsearch_dsl import analyzer
 
 from lost_objects.models import HeritageLostObject
 
@@ -11,8 +11,17 @@ keyword_lowercase = analyzer(
     filter='lowercase'
 )
 
+# Name of the Elasticsearch index
+INDEX = Index(settings.ELASTICSEARCH_INDEX_NAMES[__name__])
 
-@registry.register_document
+# See Elasticsearch Indices API reference for available settings
+INDEX.settings(
+    number_of_shards=50,
+    number_of_replicas=0
+)
+
+
+@INDEX.doc_type
 class HeritageLostObjectDocument(Document):
     date_reg = fields.DateField(
         attr='date_reg',
@@ -79,17 +88,6 @@ class HeritageLostObjectDocument(Document):
         }
     )
 
-    class Index:
-        name = 'heritage_lost_objects'
-        settings = {
-            'number_of_shards': 1,
-            'number_of_replicas': 0,
-            "max_result_window": 20000
-        }
-
     class Django:
         model = HeritageLostObject
 
-    class Meta:
-        dynamic = MetaField('true')
-        numeric_detection = MetaField('true')

@@ -3,7 +3,6 @@ import threading
 import psycopg2
 from dotenv import load_dotenv
 import os
-import re
 
 headers = {
     'X-API-KEY': '4065b6ccfb993ab5243f42be4cbbf0728721d71610a92ff9804981645cffe5f3'
@@ -45,6 +44,8 @@ def get_value(obj, key):
     try:
         value = obj.get(key)
         if value != "":
+            if value is not None:
+                value = value.replace('\r\n\r\n', ' ')
             return value
         else:
             return None
@@ -78,7 +79,7 @@ def get_objects():
     threads = []
     for offset in range(0, count, 1000):
         url = f'https://opendata.mkrf.ru/v2/heritage_lost_objects/$?s={offset}&l=1000'
-        thread = threading.Thread(target=fetch_data, args=(url, ))
+        thread = threading.Thread(target=fetch_data, args=(url,))
         threads.append(thread)
         thread.start()
 
@@ -87,6 +88,16 @@ def get_objects():
     return True
 
 
-get_objects()
+def check_exist():
+    cur.execute("select * from heritage_lost_objects")
+    count = cur.rowcount
+    return count
+
+
+if check_exist() != 0:
+    print('База данных уже существует')
+else:
+    get_objects()
+    print('ПАРСИНГ ЗАВЕРШЕН')
 
 conn.commit()

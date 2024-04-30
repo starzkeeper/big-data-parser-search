@@ -1,6 +1,6 @@
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 
-from .documents import HeritageLostObjectDocument
+from search.documents.heritage_lost_objects import HeritageLostObjectDocument
 
 
 class HeritageLostObjectDocumentSerializer(DocumentSerializer):

@@ -144,6 +144,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:9200'
+        'hosts': 'elasticsearch:9200'
     },
+}
+
+# Name of the Elasticsearch index
+ELASTICSEARCH_INDEX_NAMES = {
+    'search.documents.heritage_lost_objects': 'heritage_lost_objects',
 }
