@@ -62,6 +62,8 @@ Find documents where the field specified contains terms which begin with the exa
 
 Full documentation is available at \
 https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/filtering_usage_examples.html
+## Dockerhub
+https://hub.docker.com/repository/docker/starzkeeper/big-data-parser-search
 
 
 # Ход моих мыслей при выполнении работы можно посмотреть по адресу:
