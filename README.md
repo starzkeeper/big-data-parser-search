@@ -16,6 +16,9 @@ You can use search for multiple terms
 > http://127.0.0.1:8000/api/heritage_lost_objects-search?search=query_1&search=query_2
 Search for multiple terms in specific fields
 > http://127.0.0.1:8000/api/heritage_lost_objects-search?search=name:query_1&search=category:query_2
+Limit and offset:
+> http://127.0.0.1:8000/api/heritage_lost_objects-search?search=name:query_1&search=category:query_2&limit=100&offset=0
+Default limit=10
 # Filtering
 Filter fields:
 date_reg (registration date)
